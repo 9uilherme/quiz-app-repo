@@ -1,22 +1,30 @@
-import { Button } from "@material-ui/core";
-import { useState } from "react";
+import Home from "./pages/home";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 import Quiz from "./pages/quiz";
-import { api } from './services/Api'
 
 function App() {
   
-  const [questions, setQuestions] = useState<any>([]);
-
-  async function getQuestions() {
-    const response = await api.get("?amount=10");
-    console.log(response);
-    return setQuestions(response.data.results);
-  }
-
   return (<>
-    <Quiz questions={questions} />
-    <Button onClick={getQuestions} color="primary">Get Questions</Button>
+    <Router>
+      <Switch>
+        <Route path="/quiz">
+          <Quiz />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   </>);
 }
+
+// setup project
 
 export default App;
